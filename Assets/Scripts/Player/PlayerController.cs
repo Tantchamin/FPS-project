@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private CharacterController controller;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private Transform orientation;
     private Rigidbody playerRigidbody;
@@ -16,24 +17,25 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        MoveCharacter();
 
     }
 
     void FixedUpdate()
     {
-        MoveCharacter();
     }
 
     void MoveCharacter()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float xInput = Input.GetAxis("Horizontal");
+        float zInput = Input.GetAxis("Vertical");
 
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        //moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        //playerRigidbody.MovePosition(transform.position + moveDirection * moveSpeed * Time.deltaTime);
 
-        Vector3 moveVelocity = moveDirection * moveSpeed;
-        playerRigidbody.velocity = new Vector3(moveVelocity.x, playerRigidbody.velocity.y, moveVelocity.z);
+        moveDirection = transform.right * xInput + transform.forward * zInput;
+        controller.Move(moveDirection * moveSpeed * Time.deltaTime);
 
-        //playerRigidbody.velocity = (transform.position + moveDirection * moveSpeed * Time.deltaTime);
+
     }
 }
