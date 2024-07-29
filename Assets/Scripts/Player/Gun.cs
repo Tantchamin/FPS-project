@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private Transform gunPoint;
-    [SerializeField] private int MaxAmmo = 30;
+    [SerializeField] private int maxAmmo = 30;
     private int currentAmmo;
     public int bulletDamage = 2;
     [SerializeField] private int range = 100;
@@ -13,11 +13,13 @@ public class Gun : MonoBehaviour
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject gunShot;
     public Camera fpsCamera;
+    [SerializeField] private float reloadTime = 1.5f;
+    private bool isReloading = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = MaxAmmo;
+        currentAmmo = maxAmmo;
     }
 
     public void Shoot()
@@ -30,7 +32,7 @@ public class Gun : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
             {
-                Debug.Log("Hit");
+                Debug.Log(hit.transform.name);
                 if (hit.transform.CompareTag("Enemy"))
                 {
                     Enemy enemy = hit.transform.GetComponent<Enemy>();
@@ -43,11 +45,27 @@ public class Gun : MonoBehaviour
             currentAmmo -= 1;
 
         }
+        else
+        {
+            Reload();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Reload()
     {
-        
+        if (isReloading || currentAmmo == maxAmmo) return;
+        StartCoroutine(StartReload());
     }
+
+    IEnumerator StartReload()
+    {
+        Debug.Log("Reloading");
+        isReloading = true;
+
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = maxAmmo;
+        isReloading = false;
+    }
+
 }

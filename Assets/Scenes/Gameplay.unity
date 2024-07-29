@@ -7096,7 +7096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunPoint: {fileID: 2071262502}
   MaxAmmo: 30
-  bulletDamage: 2
+  bulletDamage: 1
   range: 100
   isAutomatic: 1
   muzzleFlash: {fileID: 1348276640}

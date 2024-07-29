@@ -7,13 +7,18 @@ public class Enemy : MonoBehaviour
     Animator enemyAnimator;
     public int healtPoint = 2;
     int attackDamage = 1;
-    float moveSpeed = 5;
+    float moveSpeed = 6;
     bool isDeath = false;
+    bool isIdle = false;
+    bool isWalking = false;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
+
+        isIdle = true;
+        enemyAnimator.SetBool("isIdle", isIdle);
     }
 
     // Update is called once per frame
@@ -36,6 +41,10 @@ public class Enemy : MonoBehaviour
             isDeath = true;
             enemyAnimator.SetBool("isDeath", isDeath);
             Destroy(this.gameObject, 1.1f);
+        }
+        else
+        {
+            enemyAnimator.SetTrigger("getDamage");
         }
     }
 

@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
             playerStatus.gunInventory[playerStatus.equipedGun].Shoot();
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            playerStatus.gunInventory[playerStatus.equipedGun].Reload();
+        }
+
     }
 
     private void CharacterGravity()
