@@ -18,15 +18,28 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     bool isGrounded = false;
 
+    [Header("PlayerStatus")]
+    [SerializeField] private PlayerStatus playerStatus;
+    [SerializeField] private Camera fpsCamera;
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();    
+        foreach(Gun gun in playerStatus.gunInventory)
+        {
+            gun.fpsCamera = fpsCamera;
+        }
     }
 
     void Update()
     {
         CharacterGravity();
         MoveCharacter();
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            playerStatus.gunInventory[playerStatus.equipedGun].Shoot();
+        }
 
     }
 
@@ -51,4 +64,6 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(playerVelocity);
     }
+
+    
 }
