@@ -31,6 +31,11 @@ public class Gun : MonoBehaviour
             if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
             {
                 Debug.Log("Hit");
+                if (hit.transform.CompareTag("Enemy"))
+                {
+                    Enemy enemy = hit.transform.GetComponent<Enemy>();
+                    enemy.getDamage(bulletDamage);
+                }
                 GameObject bulletFlash = Instantiate(gunShot, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(bulletFlash, 2f);
             }
