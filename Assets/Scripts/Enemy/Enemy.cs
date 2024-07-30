@@ -13,12 +13,11 @@ public class Enemy : MonoBehaviour
     bool isWalking = false;
     public float timeBeforeAttack = 0.5f;
     public float timeBetweenAttack = 1f;
-    [SerializeField] private BoxCollider attackBox; 
+    [SerializeField] private BoxCollider attackBox;
 
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
-
         isIdle = true;
         enemyAnimator.SetBool("isIdle", isIdle);
     }

@@ -86,11 +86,12 @@ public class EnemyAi : MonoBehaviour
         Debug.Log("AttackRange");
         // Make enemy not move when attack
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
 
         if (isalreadyAttacked == false)
         {
             Debug.Log("Attack");
+            transform.LookAt(player);
+
             // Attack
             enemy.Invoke(nameof(enemy.Attack), enemy.timeBeforeAttack);
 
