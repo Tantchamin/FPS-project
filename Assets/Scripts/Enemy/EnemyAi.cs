@@ -36,9 +36,9 @@ public class EnemyAi : MonoBehaviour
         isPlayerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
         isPlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
 
-        if (!isPlayerInSightRange && !isPlayerInAttackRange) Patroling();
-        if (isPlayerInSightRange && !isPlayerInAttackRange) ChasePlayer();
-        if (isPlayerInSightRange && isPlayerInAttackRange) AttackPlayer();
+        if (!isPlayerInSightRange && !isPlayerInAttackRange && !enemy.isDeath) Patroling();
+        if (isPlayerInSightRange && !isPlayerInAttackRange && !enemy.isDeath) ChasePlayer();
+        if (isPlayerInSightRange && isPlayerInAttackRange && !enemy.isDeath) AttackPlayer();
     }
 
     private void Patroling()
@@ -83,7 +83,6 @@ public class EnemyAi : MonoBehaviour
 
     private void AttackPlayer()
     {
-        Debug.Log("AttackRange");
         // Make enemy not move when attack
         agent.SetDestination(transform.position);
 

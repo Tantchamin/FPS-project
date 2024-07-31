@@ -32,7 +32,6 @@ public class Gun : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
             {
-                Debug.Log(hit.transform.name);
                 if (hit.transform.CompareTag("Enemy"))
                 {
                     Enemy enemy = hit.transform.GetComponent<Enemy>();

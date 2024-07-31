@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public GameManager gameManager;
     Animator enemyAnimator;
     public int healtPoint = 2;
-    int attackDamage = 1;
+    public int attackDamage = 1;
     public float moveSpeed = 6;
-    bool isDeath = false;
-    bool isIdle = false;
-    bool isWalking = false;
+    public bool isDeath = false;
+    public bool isIdle = false;
+    public bool isWalking = false;
     public float timeBeforeAttack = 0.5f;
     public float timeBetweenAttack = 1f;
     [SerializeField] private BoxCollider attackBox;
@@ -25,16 +26,17 @@ public class Enemy : MonoBehaviour
     public void getDamage(int damage)
     {
         healtPoint -= damage;
-        checkIsDeath();
+        CheckIsDeath();
     }
 
-    void checkIsDeath()
+    void CheckIsDeath()
     {
         if(healtPoint <= 0)
         {
             Debug.Log("Death");
             isDeath = true;
             enemyAnimator.SetBool("isDeath", isDeath);
+            gameManager.enemyList.Remove(this);
             Destroy(this.gameObject, 1.1f);
         }
         else
@@ -53,7 +55,6 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Attackig");
         isWalking = false;
         attackBox.gameObject.SetActive(true);
         enemyAnimator.SetTrigger("attack");
