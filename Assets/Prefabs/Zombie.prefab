@@ -1000,7 +1000,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   healtPoint: 2
   attackDamage: 1
-  moveSpeed: 6
+  moveSpeed: 7
   isDeath: 0
   isIdle: 0
   isWalking: 0
@@ -1050,8 +1050,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  sightRange: 10
+  walkPointRange: 20
+  sightRange: 30
   attackRange: 1.2
   isPlayerInSightRange: 0
   isPlayerInAttackRange: 0

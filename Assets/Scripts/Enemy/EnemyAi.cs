@@ -23,6 +23,8 @@ public class EnemyAi : MonoBehaviour
     public float sightRange, attackRange;
     public bool isPlayerInSightRange, isPlayerInAttackRange;
 
+    GameManager gameManager;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -30,8 +32,14 @@ public class EnemyAi : MonoBehaviour
         agent.speed = enemy.moveSpeed;
     }
 
+    private void Start()
+    {
+        gameManager = GameManager.GetInstance();
+    }
+
     private void Update()
     {
+        if (gameManager.isPause) return;
         // Check for sight and attck range
         isPlayerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
         isPlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);

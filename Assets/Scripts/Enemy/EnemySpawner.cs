@@ -4,28 +4,19 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameManager gameManager;
     [SerializeField] private List<Enemy> enemy;
     [SerializeField] private PlayerStatus player;
+    [SerializeField] private List<Transform> spawnPoints;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnEnemy()
     {
-        SpawnEnemy();
-    }
-
-    private void SpawnEnemy()
-    {
-        GameObject spawnedEnemy = Instantiate(enemy[0].gameObject, new Vector3(0, 0, 2), this.transform.rotation);
+        GameManager gameManager = GameManager.GetInstance();
+        int randomIndex = Random.Range(0, spawnPoints.Count);
+        GameObject spawnedEnemy = Instantiate(enemy[0].gameObject, spawnPoints[randomIndex].position, spawnPoints[randomIndex].rotation);
         spawnedEnemy.GetComponent<EnemyAi>().player = player.gameObject.transform;
         Enemy enemyStatus = spawnedEnemy.GetComponent<Enemy>();
         enemyStatus.gameManager = gameManager;
         gameManager.enemyList.Add(enemyStatus);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

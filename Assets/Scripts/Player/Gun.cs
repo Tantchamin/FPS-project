@@ -5,9 +5,11 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private Transform gunPoint;
-    [SerializeField] private int maxAmmo = 30;
-    private int currentAmmo;
+    public int maxAmmo = 30;
+    public int currentAmmo = 30;
     public int bulletDamage = 2;
+    public float fireRate = 15f;
+    public float nextTimeToFire = 0f;
     [SerializeField] private int range = 100;
     [SerializeField] private bool isAutomatic = false;
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -15,11 +17,13 @@ public class Gun : MonoBehaviour
     public Camera fpsCamera;
     [SerializeField] private float reloadTime = 1.5f;
     private bool isReloading = false;
+    GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         currentAmmo = maxAmmo;
+        gameManager = GameManager.GetInstance();
     }
 
     public void Shoot()
@@ -42,6 +46,7 @@ public class Gun : MonoBehaviour
             }
 
             currentAmmo -= 1;
+            gameManager.playerUi.SetAmmoText();
 
         }
         else
@@ -65,6 +70,7 @@ public class Gun : MonoBehaviour
 
         currentAmmo = maxAmmo;
         isReloading = false;
+        gameManager.playerUi.SetAmmoText();
     }
 
 }

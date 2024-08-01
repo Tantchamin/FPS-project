@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     Animator enemyAnimator;
     public int healtPoint = 2;
     public int attackDamage = 1;
-    public float moveSpeed = 6;
+    public float moveSpeed = 7;
     public bool isDeath = false;
     public bool isIdle = false;
     public bool isWalking = false;
@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
             isDeath = true;
             enemyAnimator.SetBool("isDeath", isDeath);
             gameManager.enemyList.Remove(this);
+            gameManager.enemyLeft -= 1;
+            gameManager.playerUi.SetZombieLeftText();
             Destroy(this.gameObject, 1.1f);
         }
         else

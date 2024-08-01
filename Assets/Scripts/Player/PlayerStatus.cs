@@ -10,7 +10,7 @@ public class PlayerStatus : MonoBehaviour
     public int currentHealth = 10;
     public HealthBar heatlhBar;
     private bool isInvisible = false;
-    private int invisibleTime = 2;
+    private int invisibleTime = 1;
 
     [Header("Guns")]
     public List<Gun> gunInventory;

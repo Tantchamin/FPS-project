@@ -22,28 +22,40 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerStatus playerStatus;
     [SerializeField] private Camera fpsCamera;
 
+    GameManager gameManager;
+    Gun equppingGun;
+
     void Start()
     {
+        gameManager = GameManager.GetInstance();
         playerRigidbody = GetComponent<Rigidbody>();    
         foreach(Gun gun in playerStatus.gunInventory)
         {
             gun.fpsCamera = fpsCamera;
         }
+        equppingGun = playerStatus.gunInventory[playerStatus.equipedGun];
     }
 
     void Update()
     {
+        if (gameManager.isPause) return;
         CharacterGravity();
         MoveCharacter();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && Time.time >= equppingGun.nextTimeToFire)
         {
-            playerStatus.gunInventory[playerStatus.equipedGun].Shoot();
+            equppingGun.nextTimeToFire = Time.time + 1f / equppingGun.fireRate;
+            equppingGun.Shoot();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            playerStatus.gunInventory[playerStatus.equipedGun].Reload();
+            equppingGun.Reload();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameManager.PauseGame(true);
         }
 
     }
