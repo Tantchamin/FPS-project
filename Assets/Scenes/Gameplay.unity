@@ -10191,6 +10191,7 @@ GameObject:
   - component: {fileID: 539198442969849306}
   - component: {fileID: 2350713431859505424}
   - component: {fileID: 4296316505552193734}
+  - component: {fileID: 4296316505552193735}
   m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
@@ -10220,8 +10221,30 @@ MonoBehaviour:
   isAutomatic: 1
   muzzleFlash: {fileID: 1348276640}
   gunShot: {fileID: 4775925131338142796, guid: 409b74ecd90a2404bb9b7c73c307e2a5, type: 3}
+  gunAnimator: {fileID: 4296316505552193735}
   fpsCamera: {fileID: 0}
   reloadTime: 1.5
+--- !u!95 &4296316505552193735
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4296316505552193733}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 49af61ff863d90847b82d5f59754fca8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!33 &6146134063963521764
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10329,6 +10352,7 @@ MonoBehaviour:
   isAutomatic: 0
   muzzleFlash: {fileID: 1705577942}
   gunShot: {fileID: 4775925131338142796, guid: 409b74ecd90a2404bb9b7c73c307e2a5, type: 3}
+  gunAnimator: {fileID: 0}
   fpsCamera: {fileID: 0}
   reloadTime: 1.5
 --- !u!1660057539 &9223372036854775807

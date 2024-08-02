@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private CharacterController controller;
     [SerializeField] private float moveSpeed = 1f;
-    private Rigidbody playerRigidbody;
     private Vector3 moveDirection;
 
     [Header("GroundCheck")]
@@ -28,7 +27,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
-        playerRigidbody = GetComponent<Rigidbody>();    
         foreach(Gun gun in playerStatus.gunInventory)
         {
             gun.fpsCamera = fpsCamera;

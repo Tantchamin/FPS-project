@@ -14,6 +14,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private bool isAutomatic = false;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject gunShot;
+    [SerializeField] private Animator gunAnimator;
     public Camera fpsCamera;
     [SerializeField] private float reloadTime = 1.5f;
     private bool isReloading = false;
@@ -58,6 +59,7 @@ public class Gun : MonoBehaviour
     public void Reload()
     {
         if (isReloading || currentAmmo == maxAmmo) return;
+        gunAnimator.SetTrigger("reload");
         StartCoroutine(StartReload());
     }
 
