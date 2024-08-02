@@ -60,12 +60,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if (state != 0) return;
             SetState(1);
             startPanel.SetActive(false);
             SetPlayerControl(true);
         }
 
-        if(enemyLeft > maxZombieInField && enemyList.Count < maxZombieInField)
+        if(enemyLeft >= maxZombieInField && enemyList.Count < maxZombieInField)
         {
             enemySpawner.SpawnEnemy();
         }
@@ -90,10 +91,14 @@ public class GameManager : MonoBehaviour
             case (GameState)1:
                 isPause = false;
                 pausePanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 Time.timeScale = 1;
                 break;
             case (GameState)2:
                 pausePanel.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 Time.timeScale = 0;
                 break;
             case (GameState)3:
@@ -105,8 +110,10 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool pauseState)
     {
+        Debug.Log(pauseState);
         isPause = pauseState;
         int setIndex = pauseState ? 2 : 1;
+        Debug.Log(setIndex);
         SetState(setIndex);
     }
 

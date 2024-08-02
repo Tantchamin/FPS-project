@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     public void getDamage(int damage)
     {
+        if (isDeath) return;
         healtPoint -= damage;
         CheckIsDeath();
     }
@@ -39,6 +40,12 @@ public class Enemy : MonoBehaviour
             gameManager.enemyList.Remove(this);
             gameManager.enemyLeft -= 1;
             gameManager.playerUi.SetZombieLeftText();
+
+            if(gameManager.enemyLeft <= 0)
+            {
+                gameManager.SetState(3);
+            }
+
             Destroy(this.gameObject, 1.1f);
         }
         else

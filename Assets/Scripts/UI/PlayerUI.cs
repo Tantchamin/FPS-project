@@ -16,6 +16,7 @@ public class PlayerUI : MonoBehaviour
     {
         gameManager = GameManager.GetInstance();
         SetAmmoText();
+        SetZombieLeftText();
     }
 
     public void SetAmmoText()
