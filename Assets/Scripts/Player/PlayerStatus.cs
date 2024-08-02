@@ -24,6 +24,11 @@ public class PlayerStatus : MonoBehaviour
             EnemyAttack enemyAttack = other.GetComponent<EnemyAttack>();
             GetDamage(enemyAttack.enemy.attackDamage);
             heatlhBar.SetHealth();
+            if(currentHealth <= 0)
+            {
+                GameManager gameManager = GameManager.GetInstance();
+                gameManager.SetState(3);
+            }
             StartCoroutine(ResetInvisible());
         }
     }

@@ -7,6 +7,7 @@ public class PlayerUI : MonoBehaviour
 {
     public TMP_Text ammoText;
     public TMP_Text zombieLeftText;
+    public TMP_Text surviveText;
     public PlayerStatus playerStatus;
     Gun equppingGun;
 
@@ -28,6 +29,11 @@ public class PlayerUI : MonoBehaviour
     public void SetZombieLeftText()
     {
         zombieLeftText.text = $"Zombie left : {gameManager.enemyLeft}";
+    }
+
+    public void SetSurvivedText(bool isSurvive)
+    {
+        surviveText.text = isSurvive ? "Suvived" : "You are dead...";
     }
 
 }

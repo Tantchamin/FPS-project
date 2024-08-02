@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
     public PlayerStatus playerStatus;
     public PlayerController playerController;
+    public CharacterController characterController;
     public CameraController cameraController;
+    public Rigidbody playerRigidbody;
     public PlayerUI playerUi;
     public List<Enemy> enemyList;
     public bool isPause = false;
@@ -58,9 +60,9 @@ public class GameManager : MonoBehaviour
             }
             countDownTime -= Time.deltaTime;
         }
-        else
+        
+        if(countDownTime <= 0 && state == 0)
         {
-            if (state != 0) return;
             SetState(1);
             startPanel.SetActive(false);
             SetPlayerControl(true);
@@ -70,6 +72,11 @@ public class GameManager : MonoBehaviour
         {
             enemySpawner.SpawnEnemy();
         }
+
+        if(enemyLeft <= 0 && isEnd)
+        {
+            SetState(3);
+        }
         
     }
 
@@ -77,6 +84,7 @@ public class GameManager : MonoBehaviour
     {
         playerController.enabled = isControl;
         cameraController.enabled = isControl;
+        characterController.enabled = isControl;
     }
 
     public void SetState(int newState)
@@ -86,26 +94,35 @@ public class GameManager : MonoBehaviour
         {
             case (GameState)0:
                 isPause = true;
-                // Time.timeScale = 0;
                 break;
             case (GameState)1:
                 isPause = false;
                 pausePanel.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                SetCameraCursor(false);
                 Time.timeScale = 1;
                 break;
             case (GameState)2:
                 pausePanel.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                SetCameraCursor(true);
                 Time.timeScale = 0;
                 break;
             case (GameState)3:
                 isPause = true;
+                SetCameraCursor(true);
+                bool isSurvive = playerStatus.currentHealth > 0;
+                playerUi.SetSurvivedText(isSurvive);
+                playerController.enabled = false;
+                cameraController.enabled = false;
                 endPanel.SetActive(true);
+                isEnd = true;
                 break;
         }
+    }
+
+    void SetCameraCursor(bool isShow)
+    {
+        Cursor.lockState = isShow ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isShow;
     }
 
     public void PauseGame(bool pauseState)

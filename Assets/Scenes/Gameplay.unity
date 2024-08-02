@@ -2697,6 +2697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoText: {fileID: 1605590549}
   zombieLeftText: {fileID: 1872843615}
+  surviveText: {fileID: 1722718272}
   playerStatus: {fileID: 1153523840}
 --- !u!1001 &620145399
 PrefabInstance:
@@ -5348,7 +5349,9 @@ MonoBehaviour:
   enemySpawner: {fileID: 788998099}
   playerStatus: {fileID: 1153523840}
   playerController: {fileID: 1153523836}
+  characterController: {fileID: 1153523839}
   cameraController: {fileID: 963194229}
+  playerRigidbody: {fileID: 0}
   playerUi: {fileID: 618682149}
   enemyList: []
   isPause: 0
@@ -7905,7 +7908,7 @@ GameObject:
   - component: {fileID: 1722718273}
   - component: {fileID: 1722718272}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: SurviveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
