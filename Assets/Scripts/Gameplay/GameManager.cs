@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public int enemyAmount = 70;
     public int enemyLeft = 70;
     public int maxZombieInField = 40;
+    SoundManager soundManager;
 
     private static GameManager gameManager;
 
@@ -44,10 +45,16 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GameManager.gameManager = this;
+        SetCameraCursor(false);
         SetState(0);
         SetPlayerControl(false);
         pausePanel.SetActive(false);
         endPanel.SetActive(false);
+    }
+
+    private void Start()
+    {
+        soundManager = SoundManager.GetInstance();
     }
 
     private void Update()
@@ -66,6 +73,7 @@ public class GameManager : MonoBehaviour
             SetState(1);
             startPanel.SetActive(false);
             SetPlayerControl(true);
+            soundManager.PlayBgm("GameplayBgm", true);
         }
 
         if(enemyLeft >= maxZombieInField && enemyList.Count < maxZombieInField)
@@ -127,10 +135,8 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool pauseState)
     {
-        Debug.Log(pauseState);
         isPause = pauseState;
         int setIndex = pauseState ? 2 : 1;
-        Debug.Log(setIndex);
         SetState(setIndex);
     }
 

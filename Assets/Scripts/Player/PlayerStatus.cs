@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -17,6 +16,13 @@ public class PlayerStatus : MonoBehaviour
 
     public int equipedGun = 0;
 
+    SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = SoundManager.GetInstance();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("EnemyAttack") && !isInvisible)
@@ -24,6 +30,8 @@ public class PlayerStatus : MonoBehaviour
             EnemyAttack enemyAttack = other.GetComponent<EnemyAttack>();
             GetDamage(enemyAttack.enemy.attackDamage);
             heatlhBar.SetHealth();
+            soundManager.PlaySound("PlayerHitted", false);
+
             if(currentHealth <= 0)
             {
                 GameManager gameManager = GameManager.GetInstance();

@@ -22,11 +22,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera fpsCamera;
 
     GameManager gameManager;
+    SoundManager soundManager;
     Gun equppingGun;
 
     void Start()
     {
         gameManager = GameManager.GetInstance();
+        soundManager = SoundManager.GetInstance();
         foreach(Gun gun in playerStatus.gunInventory)
         {
             gun.fpsCamera = fpsCamera;
@@ -49,10 +51,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             equppingGun.Reload();
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            soundManager.PlaySound("Button", false);
             gameManager.PauseGame(true);
         }
 

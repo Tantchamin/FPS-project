@@ -96,7 +96,6 @@ public class EnemyAi : MonoBehaviour
 
         if (isalreadyAttacked == false)
         {
-            Debug.Log("Attack");
             transform.LookAt(player);
 
             // Attack

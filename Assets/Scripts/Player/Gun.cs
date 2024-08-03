@@ -19,20 +19,22 @@ public class Gun : MonoBehaviour
     [SerializeField] private float reloadTime = 1.5f;
     private bool isReloading = false;
     GameManager gameManager;
+    SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
     {
         currentAmmo = maxAmmo;
         gameManager = GameManager.GetInstance();
+        soundManager = SoundManager.GetInstance();
     }
 
     public void Shoot()
     {
         if(currentAmmo > 0)
         {
-            Debug.Log("Shot");
             muzzleFlash.Play();
+            soundManager.PlaySound("AssaultRifleShot", false);
 
             RaycastHit hit;
             if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
@@ -52,7 +54,9 @@ public class Gun : MonoBehaviour
         }
         else
         {
+            if (isReloading) return;
             Reload();
+            StartCoroutine(PlayReloadSound());
         }
     }
 
@@ -73,6 +77,13 @@ public class Gun : MonoBehaviour
         currentAmmo = maxAmmo;
         isReloading = false;
         gameManager.playerUi.SetAmmoText();
+    }
+
+    IEnumerator PlayReloadSound()
+    {
+        const float waitTime = 0.35f;
+        yield return new WaitForSeconds(waitTime);
+        soundManager.PlaySound("Reloading", false);
     }
 
 }
