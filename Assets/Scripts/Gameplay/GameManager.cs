@@ -45,16 +45,21 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GameManager.gameManager = this;
+        
+    }
+
+    private void Start()
+    {
+        
+        soundManager = SoundManager.GetInstance();
         SetCameraCursor(false);
         SetState(0);
         SetPlayerControl(false);
         pausePanel.SetActive(false);
         endPanel.SetActive(false);
-    }
-
-    private void Start()
-    {
-        soundManager = SoundManager.GetInstance();
+        Debug.Log(countDownTime);
+        Debug.Log(state);
+        Debug.Log(isEnd);
     }
 
     private void Update()
@@ -65,7 +70,9 @@ public class GameManager : MonoBehaviour
             {
                 countDownText.text = $"{Mathf.Round(countDownTime)}";
             }
+            Debug.Log(countDownTime);
             countDownTime -= Time.deltaTime;
+            Debug.Log(Time.deltaTime);
         }
         
         if(countDownTime <= 0 && state == 0)
@@ -101,6 +108,7 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case (GameState)0:
+                Time.timeScale = 1;
                 isPause = true;
                 break;
             case (GameState)1:

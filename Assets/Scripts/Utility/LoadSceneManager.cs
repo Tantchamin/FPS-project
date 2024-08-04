@@ -7,6 +7,8 @@ public class LoadSceneManager : MonoBehaviour
 {
     public void TitleScene()
     {
+        SoundManager soundManager = SoundManager.GetInstance();
+        soundManager.PlayBgm("MainBgm", true);
         SceneManager.LoadScene(0);
     }
 
