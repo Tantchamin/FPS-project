@@ -13,6 +13,8 @@ public class MainManager : MonoBehaviour
     {
         soundManager = SoundManager.GetInstance();
 
+        if (Time.timeScale == 0) Time.timeScale = 1;
+
         const int startTime = 5;
         const int repeatTime = 12;
         InvokeRepeating(nameof(RandomZombieAmbient), startTime, repeatTime);
