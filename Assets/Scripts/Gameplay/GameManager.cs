@@ -57,9 +57,7 @@ public class GameManager : MonoBehaviour
         SetPlayerControl(false);
         pausePanel.SetActive(false);
         endPanel.SetActive(false);
-        Debug.Log(countDownTime);
-        Debug.Log(state);
-        Debug.Log(isEnd);
+
     }
 
     private void Update()
@@ -70,9 +68,7 @@ public class GameManager : MonoBehaviour
             {
                 countDownText.text = $"{Mathf.Round(countDownTime)}";
             }
-            Debug.Log(countDownTime);
             countDownTime -= Time.deltaTime;
-            Debug.Log(Time.deltaTime);
         }
         
         if(countDownTime <= 0 && state == 0)
@@ -110,6 +106,7 @@ public class GameManager : MonoBehaviour
             case (GameState)0:
                 Time.timeScale = 1;
                 isPause = true;
+                soundManager.StopBgm();
                 break;
             case (GameState)1:
                 isPause = false;
@@ -143,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool pauseState)
     {
+        if (state == 0) return;
         isPause = pauseState;
         int setIndex = pauseState ? 2 : 1;
         SetState(setIndex);

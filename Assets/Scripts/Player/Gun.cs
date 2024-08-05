@@ -11,7 +11,6 @@ public class Gun : MonoBehaviour
     public float fireRate = 15f;
     public float nextTimeToFire = 0f;
     [SerializeField] private int range = 100;
-    [SerializeField] private bool isAutomatic = false;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject gunShot;
     [SerializeField] private Animator gunAnimator;
@@ -31,7 +30,8 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        if(currentAmmo > 0)
+        if (isReloading) return;
+        if (currentAmmo > 0)
         {
             muzzleFlash.Play();
             soundManager.PlaySound("AssaultRifleShot", false);
@@ -54,7 +54,6 @@ public class Gun : MonoBehaviour
         }
         else
         {
-            if (isReloading) return;
             Reload();
             StartCoroutine(PlayReloadSound());
         }

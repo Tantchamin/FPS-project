@@ -24,10 +24,10 @@ public class SoundManager : MonoBehaviour
     public List<AudioItem> sounds = new List<AudioItem>();
 
     private Dictionary<string, AudioClip> idToSfxClip = new Dictionary<string, AudioClip>();
-    private AudioClip defaultBgm;
+    // private AudioClip defaultBgm;
 
-    private bool bgmIsMute = false;
-    private bool sfxIsMute = false;
+    // private bool bgmIsMute = false;
+    // private bool sfxIsMute = false;
 
     private void Awake()
     {
@@ -95,9 +95,15 @@ public class SoundManager : MonoBehaviour
         bgmSource.Play();
     }
 
+    public void StopBgm()
+    {
+        bgmSource.Stop();
+    }
+
     public void PlayButton(string soundName)
     {
         var clip = idToSfxClip[soundName];
+        sfxSources[0].volume = 1;
         sfxSources[0].PlayOneShot(clip);
     }
 
